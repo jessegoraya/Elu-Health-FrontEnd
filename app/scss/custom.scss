@@ -1,0 +1,31 @@
+@import 'elu.defaults.scss';
+@import '~grommet/scss/grommet-core/index.scss';
+@import "includes/colors";
+@import "includes/settings";
+@import "includes/card-size";
+
+/* updating put the original version in zzz_archive*/
+
+body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 15px;
+    background-color: #2AD2C9;
+}
+
+.wc-chatview-panel {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 15px;
+    font-style: #2AD2C9;
+}
+
+.wc-header {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 15px;
+    font-style: #2AD2C9;
+}
+
+.wc-message-pane {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 15px;
+    font-style: #2AD2C9;
+}

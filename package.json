@@ -1,0 +1,30 @@
+{
+  "name": "patienttab",
+  "version": "0.0.1",
+  "description": "web app for elu chatbot",
+  "scripts": {
+    "start-webpack-server": "webpack-dev-server --hot --inline --colors --progress",
+    "start": "node ./PatientContent/server.js"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "botframework-webchat": "^0.11.1",
+    "css-loader": "^0.28.7",
+    "file-loader": "^0.11.2",
+    "grommet": "^1.6.0",
+    "react": "^15.6.1",
+    "react-autobind": "^1.0.6",
+    "react-dom": "^15.6.1",
+    "style-loader": "^0.18.2"
+  },
+  "devDependencies": {
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
+    "webpack": "^3.5.5"
+  },
+  "author": "jesse goraya",
+  "license": "ISC"
+}
