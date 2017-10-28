@@ -21,12 +21,19 @@ import ListItem from 'grommet/components/ListItem';
 import autoBind from 'react-autobind';
 import {headers, buildQuery, processStatus} from 'grommet/utils/Rest';
 import {Chat} from 'botframework-webchat';
+import {DirectLine} from 'botframework-directlinejs';
 import  '../scss/custom.scss';
+import {Router, Route, Link, IndexRoute, hashHistory, browserHistory} from 'react-router';
+
 
 export default class PatientApp extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+
+    this.directLine = new DirectLine({
+      secret: "Hzmf2Hpea50.cwA.bEE.GWx_x2y4P1Eks_zTe0hSKWj0VWzLuiVtllviLHdLaxs"
+    });
 
     this.state = {
       PATIENT: []
@@ -40,6 +47,19 @@ export default class PatientApp extends React.Component {
         this.setState({PATIENT: result});
     });
 
+    //test to see if an Appointment call can be used to change the background color of the app
+    this.directLine.activity$
+        //.filter(activity => activity.type === "event" && activity.name === "changeBackground")
+        //.subscribe(activity => changeBackgroundColor(activity.value));
+        .filter(function (activity) {
+          //console.log("i have filtered by the activity type which is" + activity.type + ", activity value" + activity.value);
+          return activity.type === 'event' && activity.value === 'Update Patient';
+        })
+        .subscribe(function (activity) {
+          console.log("Im changing the color");
+          loadOverviewEditPane(activity);  
+        });
+
   }
 
 
@@ -51,7 +71,7 @@ export default class PatientApp extends React.Component {
             <Split flex='right'>
               <Section>
                 <Box margin='none' pad='none'>
-                    <Chat className={'wc-app'} directLine={{secret: 'Hzmf2Hpea50.cwA.bEE.GWx_x2y4P1Eks_zTe0hSKWj0VWzLuiVtllviLHdLaxs'}} user={{id:'jesse', name: 'jesse'}}/>
+                    <Chat className={'wc-app'} botConnection={this.directLine} user={{id:'jesse', name: 'me'}}/>
                 </Box>
               </Section>
               <Section>
@@ -131,6 +151,38 @@ class OverviewPane extends React.Component {
   }
 }
 
+class OverviewEditPane extends React.Component {  
+  
+  constructor(props) {
+    super(props);
+    autoBind(this);
+  }
+
+  render () {
+    return (
+            <table>
+              <tbody>
+                  <tr>
+                    <td>{this.props.overview.map(function(P){return <text size='small' key={P.id}>First Name: {P.FName} </text>;})}</td>
+                  </tr>
+                  <tr>
+                    <td>{this.props.overview.map(function(P){return <text size='small' key={P.id}>Last Name: {P.LName} </text>;})}</td>
+                  </tr>
+                  <tr>
+                    <td>{this.props.overview.map(function(P){return <text size='small' key={P.id}>DOB: {P.DOB} </text>;})}</td>
+                  </tr>
+                  <tr>
+                    <td>{this.props.overview.map(function(P){return <text size='small' key={P.id}>Height: {P.Height} </text>;})}</td>
+                  </tr>  
+                  <tr>
+                    <td>{this.props.overview.map(function(P){return <text size='small' key={P.id}>Weight: {P.Weight} </text>;})}</td>
+                  </tr>
+              </tbody>
+            </table>
+    );
+  }
+}
+
 class MedicationsPane extends React.Component {  
   
   constructor(props) {
@@ -177,10 +229,15 @@ class AllergiesPane extends React.Component {
       }); 
   }
 
+  function loadOverviewEditPane(activity) {
+      this.context.Router.transitionTo('/OverviewEditPane')
+  }
 
 
+//Removing code since it is now in index.js
+/*
 ReactDOM.render(
   <PatientApp /> , document.getElementById('main')
-);
+); */
 
 
