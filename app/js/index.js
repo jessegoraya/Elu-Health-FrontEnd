@@ -1,17 +1,16 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter} from 'react-router';
-import PatientApp from './app.js';
+import {BrowserRouter} from 'react-router-dom';
+import App from './app.js';
 
-/*ReactDOM.render((
+ReactDOM.render((
 <BrowserRouter>
-    <PatientApp /> 
+    <App /> 
 </BrowserRouter>), document.getElementById('main')
-);*/
+);
 
-ReactDOM.render(
-    <PatientApp /> , document.getElementById('main')
+/*ReactDOM.render(
+    <App /> , document.getElementById('main')
   ); 
-  
+*/
 
